@@ -91,10 +91,10 @@ st.markdown('<div class="container">', unsafe_allow_html=True)
 
 # Add custom HTML for text area and buttons
 st.components.v1.html("""
-                      <style>
+    <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: rgb(14, 17, 23);;
+            background-color: rgb(14, 17, 23);
             color: #333;
             text-align: center;
             padding: 20px;
@@ -130,17 +130,6 @@ st.components.v1.html("""
         }
         button:hover {
             background-color: #0056b3;
-        }
-        transcriptArea {
-            width: 80%;
-            height: 150px;
-            margin: 20px auto;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            resize: none;
-            background-color: #fff;
-            color: #333;
         }
         textarea {
             width: 100%;
@@ -191,7 +180,7 @@ st.components.v1.html("""
 
                 for (var i = event.resultIndex; i < event.results.length; ++i) {
                     if (event.results[i].isFinal) {
-                        segment_text += event.results[i][0].transcript;
+                        segment_text += addPunctuation(event.results[i][0].transcript);
                     } else {
                         interim_transcript += event.results[i][0].transcript;
                     }
@@ -221,6 +210,19 @@ st.components.v1.html("""
             } else {
                 startRecognition();
             }
+        }
+
+        function addPunctuation(transcript) {
+            // Example rule to add punctuation based on basic cues
+            // This is very simplistic; for advanced punctuation prediction, you might need a more complex NLP model
+            let trimmed = transcript.trim();
+
+            // Add a period if the segment is longer and ends in a complete thought
+            if (trimmed.length > 3 && !trimmed.endsWith('.') && !trimmed.endsWith(',')) {
+                return trimmed + '. ';
+            }
+            
+            return trimmed + ' ';
         }
 
         function downloadText() {
