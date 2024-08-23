@@ -158,8 +158,8 @@ st.components.v1.html("""
         <textarea id="transcript" placeholder="Your transcription will appear here..."></textarea>
     </div>
     <div class="button-container">
-        <button id="start_stop_button" class="button" onclick="toggleRecognition()">Start Recording</button>
-        <button class="button download-button" onclick="downloadText()">Download as .txt</button>
+        <button id="start_stop_button" class="button" onclick="toggleRecognition()">Record</button>
+        <button class="button download-button" onclick="downloadText()">Download</button>
     </div>
 
     <script>
