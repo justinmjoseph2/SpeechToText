@@ -195,13 +195,13 @@ st.components.v1.html("""
 
             recognition.start();
             isRecording = true;
-            document.getElementById('start_stop_button').innerHTML = "Stop Recording";
+            document.getElementById('start_stop_button').innerHTML = "Stop";
         }
 
         function stopRecognition() {
             recognition.stop();
             isRecording = false;
-            document.getElementById('start_stop_button').innerHTML = "Start Recording";
+            document.getElementById('start_stop_button').innerHTML = "Start";
         }
 
         function toggleRecognition() {
