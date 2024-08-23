@@ -84,7 +84,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-st.title("Real-Time Speech to Text Converter with Voice Segmentation")
+st.title("Speech to Text")
 
 # Container for the UI elements
 st.markdown('<div class="container">', unsafe_allow_html=True)
