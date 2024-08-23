@@ -213,16 +213,24 @@ st.components.v1.html("""
         }
 
         function addPunctuation(transcript) {
-            // Example rule to add punctuation based on basic cues
-            // This is very simplistic; for advanced punctuation prediction, you might need a more complex NLP model
-            let trimmed = transcript.trim();
+            let punctuationAdded = transcript;
 
-            // Add a period if the segment is longer and ends in a complete thought
-            if (trimmed.length > 3 && !trimmed.endsWith('.') && !trimmed.endsWith(',')) {
-                return trimmed + '. ';
+            // Add a period to the end of the transcript if it doesn't already end with one
+            if (!punctuationAdded.endsWith('.') && !punctuationAdded.endsWith('!') && !punctuationAdded.endsWith('?')) {
+                punctuationAdded += '.';
             }
-            
-            return trimmed + ' ';
+
+            // Simple rules to add punctuation based on common patterns
+            punctuationAdded = punctuationAdded.replace(/([a-zA-Z])([.!?])([a-zA-Z])/g, '$1$2 $3'); // Add space after punctuation
+
+            // Add question marks for questions (simple heuristic)
+            if (punctuationAdded.toLowerCase().includes('how') || punctuationAdded.toLowerCase().includes('what') ||
+                punctuationAdded.toLowerCase().includes('where') || punctuationAdded.toLowerCase().includes('why') ||
+                punctuationAdded.toLowerCase().includes('who')) {
+                punctuationAdded = punctuationAdded.replace(/([a-zA-Z]+)([\s]+)?$/, '$1?');
+            }
+
+            return punctuationAdded + ' ';
         }
 
         function downloadText() {
